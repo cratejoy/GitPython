@@ -331,9 +331,17 @@ class Git(LazyMixin):
         else:
           cwd=self._working_dir
 
-        if command[1] == 'pull' or command[1] == 'reset':
-            cwd += '/.git'
-          
+        import logging
+        log = logging.getLogger(u"cratejoy")
+        log.debug(u"Running command {} in {}".format(command, cwd))
+
+        env = os.environ.copy()
+        if env.get('GIT_DIR'):
+            del env['GIT_DIR']
+
+        #log.debug(env)
+        #log.debug(u"Args {}".format(subprocess_kwargs))
+
         # Start the process
         proc = Popen(command,
                         cwd=cwd,
@@ -341,6 +349,7 @@ class Git(LazyMixin):
                         stderr=PIPE,
                         stdout=PIPE,
                         close_fds=(os.name=='posix'),# unsupported on linux
+                        env=env,
                         **subprocess_kwargs
                         )
         if as_process:
