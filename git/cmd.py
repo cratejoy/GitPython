@@ -331,7 +331,7 @@ class Git(LazyMixin):
         else:
           cwd=self._working_dir
 
-        if command[1] == 'pull':
+        if command[1] == 'pull' or command[1] == 'reset':
             cwd += '/.git'
           
         # Start the process
