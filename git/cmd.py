@@ -342,8 +342,8 @@ class Git(LazyMixin):
         else:
           cwd=self._working_dir
 
-        if command[1] == 'pull':
-            cwd += '/.git'
+        #if command[1] == 'pull':
+            #cwd += '/.git'
           
         # Start the process
         env = os.environ.copy()
